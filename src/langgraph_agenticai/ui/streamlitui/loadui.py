@@ -28,14 +28,14 @@ class LoadStreamlitUI:
             )
 
             ### API KEY (Always Visible)
-            self.user_controls["API_KEY"] = st.text_input(
-                "API Key",
+            self.user_controls["GROQ_API_KEY"] = st.text_input(
+                "GROQ_API_KEY",
                 type="password",
-                value=st.session_state.get("API_KEY", ""),
-                key="API_KEY"
+                value=st.session_state.get("GROQ_API_KEY", ""),
+                key="GROQ_API_KEY"
             )
 
-            if not self.user_controls["API_KEY"]:
+            if not self.user_controls["GROQ_API_KEY"]:
                 st.warning("Please enter your API key.")
 
             ### Show GROQ model only when GROQ selected
