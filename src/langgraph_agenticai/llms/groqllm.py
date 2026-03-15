@@ -2,6 +2,7 @@ import os
 import streamlit as st
 from langchain_groq import ChatGroq
 
+
 class GroqLLM:
     def __init__(self, user_controls_input):
         self.user_controls_input = user_controls_input
@@ -11,15 +12,21 @@ class GroqLLM:
             groq_api_key = self.user_controls_input.get("GROQ_API_KEY")
             selected_model = self.user_controls_input.get("selected_model")
 
-            if groq_api_key:
-                llm = ChatGroq(
-                    groq_api_key=groq_api_key,
-                    model_name=selected_model
-                )
-            else:
+            if not groq_api_key:
                 st.error("Please provide the Groq API Key")
-                llm = None
+                return None
+
+            if not selected_model:
+                st.error("Please select a model")
+                return None
+
+            llm = ChatGroq(
+                groq_api_key=groq_api_key,
+                model_name=str(selected_model)  # ensure string
+            )
+
+            return llm
+
         except Exception as e:
             st.error(f"Error in initializing Groq LLM: {e}")
-            llm = None
-        return llm
+            return None
